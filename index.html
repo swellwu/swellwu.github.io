@@ -262,6 +262,67 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-抽象工厂" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/29/抽象工厂/" class="article-date">
+      <time datetime="2016-06-29T15:53:08.000Z" itemprop="datePublished">2016-06-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/29/抽象工厂/">抽象工厂</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#作用<br>用于创建相似结构、不同系列的产品时将设计实现分离，实现统一的接口。</p>
+<p>#举例</p>
+<p>##需求<br>需要创建一个王国，一个王国需要的元素有国王、军队、城堡。不同种族有不同风格的王国，<br>比如有精灵族、兽族、不死族。现在需要根据种族来创建对应风格的王国。</p>
+<p>##分析<br>不同的种族的构成相似，都是由国王、军队、城堡构成。一个种族内部的风格保持一致。<br>把王国作为产品，种族就是相应系列。这里抽象出产品、系列、部件，产品由系列唯一确定，系列<br>由一套相同风格的部件确定。每个部件为一个抽象，不同风格为不同实现。这样，整体的设计就慢慢<br>清晰了。</p>
+<p>##设计<br>这里设计两个种族，精灵和兽人。<br><img src="http://o9ji12ib8.bkt.clouddn.com/pattern/java/abstract-factory_1.png" alt="alt text" title="Abstract Factory"></p>
+<p>##实现</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-test-blog" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
