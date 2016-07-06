@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no" />
-<meta name="author" content="swelwu" />
+<meta name="author" content="swellwu" />
 
 
     
@@ -99,7 +99,7 @@
             <img src="/img/avatar.png" class="animated zoomIn">
         </a>
         <hgroup>
-          <h1 class="header-author"><a href="/">swelwu</a></h1>
+          <h1 class="header-author"><a href="/">swellwu</a></h1>
         </hgroup>
 
         
@@ -216,7 +216,7 @@
       <nav id="mobile-nav">
       <div class="overlay">
           <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">swelwu</a></h1>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">swellwu</a></h1>
       </div>
     <div class="intrude-less">
         <header id="header" class="inner">
@@ -224,7 +224,7 @@
                 <img src="/img/avatar.png" class="animated zoomIn">
             </a>
             <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">swelwu</a></h1>
+              <h1 class="header-author"><a href="/" title="回到主页">swellwu</a></h1>
             </hgroup>
             
             <nav class="header-menu">
@@ -258,6 +258,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-适配器模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/06/适配器模式/" class="article-date">
+      <time datetime="2016-07-06T13:36:36.000Z" itemprop="datePublished">2016-07-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/06/适配器模式/">适配器模式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h1><p>&emsp;&emsp;用于接口的适配，将一个类已不同的接口进行封装，以达到和客户匹配的目的。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>&emsp;&emsp;海盗船长开着海盗船四处抢劫，有敢于反抗的就会开火轰趴他们。所以船长必须会开船四处航行和开火两项技能，这两项功能战船都能提供，但是现在<br>海盗遇到海军战败了，战船被烧，四处逃亡，最终发现了一艘渔船。虽说和威风的战船没法比，那也必须会开啊。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>&emsp;&emsp;船长会开船和开炮，渔船只能航行却不能开炮，那简单啊，给船长一个开火按键，告诉他这就是开火就可以了。这样船长还和以前一样开着战船，没有任何<br>变化。</p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>&emsp;&emsp;这就很简单了，把渔船和战船的接口改成一样就好了。但是渔船已经成型，直接改动会不稳定，所以我们只需加一层封装来实现接口的适配就可以了。<br>这就是适配器模式。</p>
+<p><img src="http://o9ji12ib8.bkt.clouddn.com/pattern%2Fjava%2Fadapter.png" alt="Adapter" title="Adapter"></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="首先是战船都能开火和移动"><a href="#首先是战船都能开火和移动" class="headerlink" title="首先是战船都能开火和移动"></a>首先是战船都能开火和移动</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BattleShip</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="然后是船长会操作战船移动和开火"><a href="#然后是船长会操作战船移动和开火" class="headerlink" title="然后是船长会操作战船移动和开火"></a>然后是船长会操作战船移动和开火</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Captain</span> <span class="keyword">implements</span> <span class="title">BattleShip</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> BattleShip battleship;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Captain</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Captain</span><span class="params">(BattleShip battleship)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.battleship = battleship;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBattleship</span><span class="params">(BattleShip battleship)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.battleship = battleship;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    battleship.fire();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    battleship.move();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="有一艘渔船"><a href="#有一艘渔船" class="headerlink" title="有一艘渔船"></a>有一艘渔船</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FishingBoat</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"The Boat is moving to that place"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fish</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"fishing ..."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关键的时候来啦，把渔船适配成战船"><a href="#关键的时候来啦，把渔船适配成战船" class="headerlink" title="关键的时候来啦，把渔船适配成战船"></a>关键的时候来啦，把渔船适配成战船</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BattleFishingBoat</span> <span class="keyword">implements</span> <span class="title">BattleShip</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> FishingBoat boat;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">BattleFishingBoat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    boat = <span class="keyword">new</span> FishingBoat();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"fire!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    boat.sail();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="船长继续和以前一样，一遍航行一遍开炮"><a href="#船长继续和以前一样，一遍航行一遍开炮" class="headerlink" title="船长继续和以前一样，一遍航行一遍开炮"></a>船长继续和以前一样，一遍航行一遍开炮</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  Captain captain = <span class="keyword">new</span> Captain(<span class="keyword">new</span> BattleFishingBoat());</span><br><span class="line">  captain.move();</span><br><span class="line">  captain.fire();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="虽然实际上确实在打渔。。。"><a href="#虽然实际上确实在打渔。。。" class="headerlink" title="虽然实际上确实在打渔。。。"></a>虽然实际上确实在打渔。。。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The Boat is moving to that place</span><br><span class="line">fire!</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>适配器模式就是将一个类或者模块封装起来，这个封装层提供给外接不同的接口已适应客户</li>
+<li>一个类可以提供不同的适配层提供给不同喜好的客户，提高了代码的复用度</li>
+<li>JDBC就是非常好的适配器模式的使用案例，不同的数据库虽然实现不一样，但是适配层接口都保持<br>一致，客户改变数据库时不需要更改代码，只需要替换具体驱动即可</li>
+<li>实际的使用中，比如维护一个很乱又没有文档的项目时，可以将很的模块隔离开来，提供一个适配层给外界使用，能在不出错的前提下增加清晰度</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-工厂方法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -288,7 +360,7 @@
       
           
         <h1 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h1><p>&emsp;&emsp;用于创建不同产品，对创建过程进行了抽象，使得客户代码可以很方便的更改产品或是新增产品。</p>
-<h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>&emsp;&emsp;现在需要为不同种族制作武器，精灵族和兽族的武器肯定是大不相同，需要一个设计让客户代码可以方便的选择具体创建什么种族什么类型的武器。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>&emsp;&emsp;现在需要为不同种族制作武器，精灵族和兽族的武器肯定是大不相同，需要一个设计让客户代码可以方便的选择具体创建什么种族什么类型的武器。</p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>&emsp;&emsp;需要创建武器，需要确定什么种族和什么类型的武器。这两部可以进行抽象，抽象成锻造工人和武器，锻造工人分为精灵族和兽族，根据武器类型可以锻造对应种族<br>的武器。</p>
 <h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>&emsp;&emsp;根据分析，接口有武器接口、锻造工人接口，这两个接口都有具体的精灵族和兽人实现，有了具体的锻造工人后只需要给定类型（刀、斧、剑等）就能<br>自动生产相应种族的武器。</p>
 <p><img src="http://o9ji12ib8.bkt.clouddn.com/pattern/java/factory-method_1.png" alt="Factory Method" title="Factory Method"></p>
@@ -472,7 +544,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016 swelwu
+                2016 swellwu
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
