@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>spring实战第五章记录 | swellwu</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">spring实战第五章记录</h1><a id="logo" href="/.">swellwu</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">spring实战第五章记录</h1><div class="post-meta">Sep 16, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><h2 id="配置DispatcherServlet"><a href="#配置DispatcherServlet" class="headerlink" title="配置DispatcherServlet"></a>配置DispatcherServlet</h2><p>DispatcherServlet是spring mvc的核心，它负责将请求路由到其他组件中。<br>传统的DispatcherServlet配置在web.xml中，现在更推荐的配置是java配置。<br>使用java配置需要servlet3.0的支持，需要tomcat7及以上版本。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">SpitterWebInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractAnnotationConfigDispatcherServletInitializer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 配置ContextLoaderListener上下文</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> <span class="type">Class</span>&lt;?&gt;[] getRootConfigClasses() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Class</span>&lt;?&gt;[] &#123; <span class="type">RootConfig</span>.<span class="keyword">class</span> &#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 配置DispatcherServlet上下文</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> <span class="type">Class</span>&lt;?&gt;[] getServletConfigClasses() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="type">Class</span>&lt;?&gt;[] &#123; <span class="type">WebConfig</span>.<span class="keyword">class</span> &#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 路径映射，这里表示会处理进入应用的所有请求</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">protected</span> <span class="type">String</span>[] getServletMappings() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>[] &#123; <span class="string">"/"</span> &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>扩展<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">```DispatcherServlet```启动时会创建spring应用上下文，加载配置的bean,如控制器、视图解析器和处理器映射中的bean；</span><br><span class="line">```ContextLoaderListener```启动时也会创建一个应用上下文，这个上下文用来加载应用中的其他bean，通常是驱动后端的中间层和数据层组件。</span><br><span class="line">```getServletConfigClasses()```方法返回的配置类用来定义```DispatcherServlet```创建的应用上下文中的bean；</span><br><span class="line">```getRootConfigClasses()```方法返回的配置类用来定义```ContextLoaderListener```创建的应用上下文中的bean。</span><br><span class="line"></span><br><span class="line">两个配置文件：</span><br><span class="line">WebConfig:</span><br></pre></td></tr></table></figure></p>
+<p>@Configuration<br>// 启用spring mvc<br>@EnableWebMvc<br>// 启用组件扫描<br>@ComponentScan(“spittr.web”)<br>public class WebConfig extends WebMvcConfigurerAdapter {</p>
+<pre><code>// 配置视图解析器
+@Bean
+public ViewResolver viewResolver() {
+    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    resolver.setPrefix(&quot;/WEB-INF/views/&quot;);
+    resolver.setSuffix(&quot;.jsp&quot;);
+    return resolver;
+}
+
+// 配置静态资源的处理
+@Override
+public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    // 对静态资源的请求不使用DispatcherServlet，而是转发到Servlet容器中的默认Servlet中
+    configurer.enable();
+}
+
+@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    // TODO Auto-generated method stub
+    super.addResourceHandlers(registry);
+}
+</code></pre><p>}<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">RootConfig:</span></span><br></pre></td></tr></table></figure></p>
+<p>@Configuration<br>@Import(DataConfig.class)<br>@ComponentScan(basePackages={“spittr”},<br>    excludeFilters={<br>        @Filter(type=FilterType.CUSTOM, value=WebPackage.class)<br>    })<br>public class RootConfig {<br>  public static class WebPackage extends RegexPatternTypeFilter {<br>    public WebPackage() {<br>      super(Pattern.compile(“spittr\.web”));<br>    }<br>  }<br>}<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">## 最小可运行原型</span></span><br><span class="line"><span class="meta">### 基本控制器和jsp</span></span><br><span class="line"><span class="meta">#### 控制器</span></span><br></pre></td></tr></table></figure></p>
+<pre><code>@Controller
+@RequestMapping(&quot;/&quot;)
+public class HomeController {
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String home(Model model) {
+        return &quot;home&quot;;
+    }
+}
+</code></pre><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Controller</span>是基于<span class="variable">@Component</span>的构造型注解，所以已经配置为spring应用上下文中的bean了。</span><br><span class="line"></span><br><span class="line">#### 基本视图</span><br><span class="line">home.jsp：</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;
+    pageEncoding=&quot;UTF-8&quot;%&gt;
+
+&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot;%&gt;
+&lt;%@ taglib prefix=&quot;spring&quot; uri=&quot;http://www.springframework.org/tags&quot;%&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;title&gt;Spittr&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;
+    href=&quot;&lt;c:url value=&quot;/resources/style.css&quot; /&gt;&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to Spittr&lt;/h1&gt;
+    &lt;a href=&quot;&lt;c:url value=&quot;/spittles&quot; /&gt;&quot;&gt;Spittles&lt;/a&gt; |
+    &lt;a href=&quot;&lt;c:url value=&quot;/spitter/register&quot; /&gt;&quot;&gt;Register&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#### 基本流程</span><br><span class="line">客户端```get```方法请求```/```路径时匹配到```HomeController()```方法，然后返回```home```字符串到视图解析器中，根据```WebConfig```中配置的</span><br><span class="line">试图解析器，将```home```解析为```/WEB-INF/views/home.jsp```,所以访问到```home.jsp```页面。</span><br><span class="line"></span><br><span class="line">### maven配置</span><br><span class="line">注意h2数据库和servlet-api的scope：</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;!-- h2内存数据库 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+    &lt;artifactId&gt;h2&lt;/artifactId&gt;
+    &lt;version&gt;${h2.version}&lt;/version&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;!-- servlet-api --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;${servlet.version}&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">容器为maven内置的tomcat插件：</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;pluginManagement&gt;
+    &lt;plugins&gt;
+        &lt;!-- 配置Tomcat插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+            &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.2&lt;/version&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/pluginManagement&gt;
+</code></pre><p><code>然后以maven命令</code>clean tomcat7:run```就能运行了，示意图：</p>
+<p><img src="http://o9ji12ib8.bkt.clouddn.com/springinaction/sping5-1.png" alt="spittr环境搭建"></p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://wuxinjian.com/2016/09/16/spring实战第五章记录/" data-id="cit63idup00005gn2khu7o31q" class="article-share-link">Share</a><div class="tags"><a href="/tagsswelwu/spring/">spring</a></div><div class="post-nav"><a href="/2016/07/27/责任链模式/" class="next">责任链模式</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://wuxinjian.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tagsswelwu/spring/" style="font-size: 15px;">spring</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/09/16/spring实战第五章记录/">spring实战第五章记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/27/责任链模式/">责任链模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/17/建造者模式/">建造者模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/10/桥接模式/">桥接模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/06/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/工厂方法/">工厂方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/29/抽象工厂/">抽象工厂</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/27/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://ioliu.cn/archives/" title="云淡风轻" target="_blank">云淡风轻</a><ul></ul><a href="https://www.haomwei.com/" title="屠夫9441" target="_blank">屠夫9441</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">swellwu.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
